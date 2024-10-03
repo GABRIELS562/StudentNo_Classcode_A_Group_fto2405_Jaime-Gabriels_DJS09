@@ -1,11 +1,14 @@
-// Fixing the Website
-// Can you fix my code to show 'Welcome back Bobby' in the Nav Bar for 
-// our couch surfing website? Do this by assigning types to the parameters
-// we pass to our populateUser function, so that we can be aware of
-// errors in our user objects in the future.
-var returningUserDisplay = document.querySelector('#returning-user');
-var userNameDisplay = document.querySelector('#user');
-var reviewTotalDisplay = document.querySelector('#reviews');
+"use strict";
+// Tuple Types
+// 1. Replace the contact values to take an array that contains a
+// phone number and email.
+// 2. Check the inferred Type that appears in the Object Type.
+// 3. Overwrite the inferred type to be a Tuple.
+Object.defineProperty(exports, "__esModule", { value: true });
+var propertyContainer = document.querySelector('.properties');
+var utils_1 = require("./utils");
+var isOpen;
+// Reviews
 var reviews = [
     {
         name: 'Sheia',
@@ -26,19 +29,70 @@ var reviews = [
         date: '27-03-2021'
     },
 ];
-function showReviewTotal(value, reviewer, isLoyalty) {
-    var iconDisplay = isLoyalty ? '⭐' : '';
-    reviewTotalDisplay.innerHTML = 'review total ' + value.toString() + '| last reviewed by ' + reviewer + ' ' + iconDisplay;
-}
-showReviewTotal(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
+// User
 var you = {
-    userName: 'Bobby',
+    firstName: 'Bobby',
+    lastName: 'Brown',
     isReturning: true,
+    age: 35,
+    stayedAt: ['florida-home', 'oman-flat', 'tokyo-bungalow']
 };
-function populateUser(isReturning, userName) {
-    if (isReturning) {
-        returningUserDisplay.innerHTML = 'back';
+// Array of Properties
+var properties = [
+    {
+        image: './images/colombia-property.jpg',
+        title: 'Colombian Shack',
+        price: 45,
+        location: {
+            firstLine: 'shack 37',
+            city: 'Bogota',
+            code: 45632,
+            country: 'Colombia'
+        },
+        contact: [+1123495082908, 'marywinkle@gmail.com'],
+        isAvailable: true
+    },
+    {
+        image: './images/poland-property.jpg',
+        title: 'Polish Cottage',
+        price: 34,
+        location: {
+            firstLine: 'no 23',
+            city: 'Gdansk',
+            code: 343903,
+            country: 'Poland'
+        },
+        contact: [+1123495082908, 'garydavis@hotmail.com'],
+        isAvailable: false
+    },
+    {
+        image: './images/london-property.jpg',
+        title: 'London Flat',
+        price: 23,
+        location: {
+            firstLine: 'flat 15',
+            city: 'London',
+            code: 35433,
+            country: 'United Kingdom',
+        },
+        contact: [+1123495082908, 'andyluger@aol.com'],
+        isAvailable: true
     }
-    userNameDisplay.innerHTML = userName;
-}
-populateUser(you.isReturning, you.userName);
+];
+// Functions
+(0, utils_1.showReviewTotal)(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
+(0, utils_1.populateUser)(you.isReturning, you.firstName);
+document.addEventListener('DOMContentLoaded', function () {
+    (0, utils_1.showReviewTotal)(reviews.length, reviews[0].name, reviews[0].loyaltyUser);
+    (0, utils_1.populateUser)(you.isReturning, you.firstName);
+    // Add the properties
+    for (var i = 0; i < properties.length; i++) {
+        var card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = properties[i].title;
+        var image = document.createElement('img');
+        image.setAttribute('src', properties[i].image);
+        card.appendChild(image);
+        propertyContainer.appendChild(card);
+    }
+});
